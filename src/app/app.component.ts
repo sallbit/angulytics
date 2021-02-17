@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GoogleAnalyticsService } from './google-analytics.service';
 
 //declare gives Angular app access to ga function
-// declare let gtag: Function;
+declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
@@ -22,13 +22,11 @@ export class AppComponent implements OnInit{
       private router: Router,
       private service: GoogleAnalyticsService
   ) {
-    // this.router.events.subscribe(event => {
-    //   if(event instanceof NavigationEnd){
-
-    //     console.log(event.urlAfterRedirects);
-    //     gtag('config', 'AW-658679142', {'page_path': event.urlAfterRedirects});
-    //   }
-    // })
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd){
+        gtag('config', 'AW-658679142', {'page_path': event.urlAfterRedirects});
+      }
+    })
   }
 
   ngOnInit() {
